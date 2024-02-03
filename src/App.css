@@ -8,7 +8,6 @@
   src: url("/FangZhengKaiTiJianTi-1.ttf") format("truetype");
 }
 
-
 @font-face {
   font-family: "Lubalin Graph BT Bold";
   src: url("/LubalinGraphITCbyBT-Bold.otf");
@@ -19,6 +18,7 @@ body {
   min-width: 100%;
   font-family: "Lubalin Graph BT Bold", Cambria, Cochin, Georgia, Times,
     "Times New Roman", serif;
+  background: #fcdac4;
 }
 
 .EN {
@@ -46,6 +46,13 @@ body:has(#root > .title_page) {
   background-size: cover;
 }
 
+body:has(#root > .end_page) {
+  background: url("/img/ending_page.png") #dd5350;
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: contain;
+}
+
 .textOutline {
   -webkit-text-stroke: 0.45px #faf5f5;
 }
@@ -56,4 +63,12 @@ body:has(#root > .title_page) {
 
 .textShadow {
   text-shadow: 2px 2px 3px #99303055;
+}
+
+.endPageText {
+  text-shadow: 2px 2px 3px #983232;
+}
+
+.glowText {
+  text-shadow: 0px 0px 15px #e3e04b88;
 }
