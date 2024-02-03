@@ -167,16 +167,16 @@ function App() {
           </CustomButton>
         </div>
       ) : bodyClass == "end_page" ? (
-        <div className="flex flex-col min-h-[100dvh] h-full justify-center items-center gap-24 mx-auto w-[250px] text-[#e3e04b] relative">
+        <div className="flex flex-col min-h-[100dvh] h-full justify-center items-center gap-24 mx-auto w-[250px] text-[#e3e04b]">
           <div
             className={cn(
-              "text-2xl text-center endPageText absolute left-0 right-0 top-[22.5%]",
+              "text-2xl text-center endPageText",
               language == "中文" ? "font-semibold text-[2.6rem]" : ""
             )}
           >
             {LANGUAGE_MAP[language]["congrats"] + " " + name}
           </div>
-          <div className="text-8xl font-bold glowText 中文">大吉</div>
+          <div className="text-8xl font-bold glowText 中文 mb-16">大吉</div>
         </div>
       ) : (
         <div>
