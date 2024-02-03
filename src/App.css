@@ -1,0 +1,59 @@
+/* @font-face {
+  font-family: "Aa Jiu Zhong Xiao";
+  src: url("/AaJiuZhongXiao-2.ttf") format("truetype");
+} */
+
+@font-face {
+  font-family: "Aa Jiu Zhong Xiao";
+  src: url("/FangZhengKaiTiJianTi-1.ttf") format("truetype");
+}
+
+
+@font-face {
+  font-family: "Lubalin Graph BT Bold";
+  src: url("/LubalinGraphITCbyBT-Bold.otf");
+}
+
+body {
+  min-height: 100dvh;
+  min-width: 100%;
+  font-family: "Lubalin Graph BT Bold", Cambria, Cochin, Georgia, Times,
+    "Times New Roman", serif;
+}
+
+.EN {
+  font-family: "Lubalin Graph BT Bold", Cambria, Cochin, Georgia, Times,
+    "Times New Roman", serif;
+}
+
+.中文 {
+  font-family: "Aa Jiu Zhong Xiao", "Lubalin Graph BT Bold", Cambria, Cochin,
+    Georgia, Times, "Times New Roman", serif;
+}
+
+/* .中文 input::placeholder {
+  transform: translateY(25%);
+}
+
+.中文 span {
+  transform: translateY(50%);
+} */
+
+body:has(#root > .title_page) {
+  background: url("/img/title_page.png") #fcdac4;
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+}
+
+.textOutline {
+  -webkit-text-stroke: 0.45px #faf5f5;
+}
+
+.中文 .textOutline {
+  -webkit-text-stroke: 0px #faf5f5;
+}
+
+.textShadow {
+  text-shadow: 2px 2px 3px #99303055;
+}
