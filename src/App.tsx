@@ -43,6 +43,8 @@ function App() {
     console.log(name);
   }
 
+  useEffect(() => {}, []);
+
   return (
     <div className={cn(bodyClass, "relative", language)}>
       <div className="absolute top-2 right-2">
@@ -53,7 +55,7 @@ function App() {
           }
           className={cn(language == "EN" ? "中文" : "EN")}
         >
-          {language == "EN" ? <span>中文</span> : "EN"}
+          {language == "EN" ? <span className="font-bold">中文</span> : "EN"}
         </Button>
       </div>
       <div className="flex flex-col min-h-[100dvh] h-full items-center gap-5 mx-auto w-[250px] pt-20">
