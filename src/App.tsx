@@ -7,7 +7,6 @@ import { Toaster } from "@/components/ui/toaster";
 import { useToast } from "@/components/ui/use-toast";
 import Webcam from "react-webcam";
 import { cn } from "./lib/utils";
-import { useWindowSize } from "@uidotdev/usehooks";
 
 type bodyClassType = "title_page" | "end_page" | "flowers" | "gold" | "light";
 
@@ -16,29 +15,18 @@ function App() {
   let [name, setName] = useState<string>("");
   let [bodyClass, setBodyClass] = useState<bodyClassType>("title_page");
   let [language, setLanguage] = useState<"EN" | "中文">("EN");
-  const size = useWindowSize();
 
-  type videoConstraintsType = {
-    width: number | { ideal: number };
-    height: number | { ideal: number };
-    facingMode: string;
-    autoFocus: string;
-    flashMode: string;
-    whiteBalance: string;
-    zoom: number;
-    focusDepth: number;
-  };
-
-  let [videoConstraints, setVideoConstraints] = useState<videoConstraintsType>({
-    width: { ideal: 720 },
-    height: { ideal: 1280 },
+  let videoConstraints = {
+    width: 720,
+    height: 1280,
     facingMode: "environment",
     autoFocus: "continuous",
     flashMode: "off",
     whiteBalance: "continuous",
     zoom: 0,
     focusDepth: 0,
-  });
+    aspectRatio: 0.5625,
+  };
 
   type LANGUAGE_TYPE = {
     header: ReactNode;
@@ -109,15 +97,6 @@ function App() {
         console.error("Error accessing video stream:", error);
       });
   }, []);
-
-  useEffect(() => {
-    setVideoConstraints((prevState: videoConstraintsType) => {
-      let currentState = { ...prevState };
-      currentState["width"] = size.width || { ideal: 720 };
-      currentState["height"] = size.height || { ideal: 1280 };
-      return currentState;
-    });
-  }, [size]);
 
   return (
     <div className={cn(bodyClass, "relative min-h-[100dvh] h-full", language)}>
@@ -200,8 +179,8 @@ function App() {
         <div className="max-h-[100dvh] overflow-hidden relative">
           <Webcam
             audio={false}
-            width={size.width || 0}
-            height={size.height || 0}
+            width={720}
+            height={1280}
             videoConstraints={videoConstraints}
             className="w-full h-[100dvh]"
             autoFocus={true}
