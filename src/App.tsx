@@ -16,14 +16,20 @@ function App() {
   let [name, setName] = useState<string>("a");
   let [bodyClass, setBodyClass] = useState<bodyClassType>("title_page");
   let [language, setLanguage] = useState<"EN" | "中文">("EN");
-  let [width, setWidth] = useState<number>();
-  let [height, setHeight] = useState<number>();
+  let [width, setWidth] = useState<number>(0);
+  let [height, setHeight] = useState<number>(0);
 
-  const videoConstraints = {
+  type videoConstraintsType = {
+    width: number;
+    height: number;
+    facingMode: string;
+  };
+
+  let [videoConstraints, setVideoConstraints] = useState<videoConstraintsType>({
     width: width,
     height: height,
     facingMode: "environment",
-  };
+  });
 
   type LANGUAGE_TYPE = {
     header: ReactNode;
@@ -98,6 +104,17 @@ function App() {
       setHeight((docRef.current as HTMLDivElement).clientHeight);
     }
   }, []);
+
+  useEffect(() => {
+    if (width > 0 && height > 0) {
+      setVideoConstraints((prevState: videoConstraintsType) => {
+        let currentState = { ...prevState };
+        currentState["width"] = width;
+        currentState["height"] = height;
+        return currentState;
+      });
+    }
+  }, [width, height]);
 
   return (
     <div
