@@ -164,7 +164,7 @@ function App() {
           </CustomButton>
         </div>
       ) : bodyClass == "end_page" ? (
-        <div className="flex flex-col min-h-[100dvh] h-full justify-center items-center gap-24 mx-auto w-[250px] text-[#e3e04b]">
+        <div className="flex flex-col min-h-[100dvh] h-full justify-center items-center gap-24 mx-auto w-[300px] text-[#e3e04b]">
           <div
             className={cn(
               "text-2xl text-center endPageText",
