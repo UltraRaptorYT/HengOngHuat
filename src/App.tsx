@@ -19,8 +19,8 @@ function App() {
   const size = useWindowSize();
 
   type videoConstraintsType = {
-    width: number;
-    height: number;
+    width: number | { ideal: number };
+    height: number | { ideal: number };
     facingMode: string;
     autoFocus: string;
     flashMode: string;
@@ -30,8 +30,8 @@ function App() {
   };
 
   let [videoConstraints, setVideoConstraints] = useState<videoConstraintsType>({
-    width: 0,
-    height: 0,
+    width: { ideal: 720 },
+    height: { ideal: 1280 },
     facingMode: "environment",
     autoFocus: "continuous",
     flashMode: "off",
@@ -113,8 +113,8 @@ function App() {
   useEffect(() => {
     setVideoConstraints((prevState: videoConstraintsType) => {
       let currentState = { ...prevState };
-      currentState["width"] = size.width || 0;
-      currentState["height"] = size.height || 0;
+      currentState["width"] = size.width || { ideal: 720 };
+      currentState["height"] = size.height || { ideal: 1280 };
       return currentState;
     });
   }, [size]);
