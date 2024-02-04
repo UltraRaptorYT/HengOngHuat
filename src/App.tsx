@@ -13,7 +13,7 @@ type bodyClassType = "title_page" | "end_page" | "flowers" | "gold" | "light";
 function App() {
   const { toast } = useToast();
   let docRef = useRef(null);
-  let [name, setName] = useState<string>("a");
+  let [name, setName] = useState<string>("");
   let [bodyClass, setBodyClass] = useState<bodyClassType>("title_page");
   let [language, setLanguage] = useState<"EN" | "中文">("EN");
   let [width, setWidth] = useState<number>(0);
@@ -145,6 +145,7 @@ function App() {
             onInput={(e) => {
               setName((e.target as HTMLInputElement).value);
             }}
+            value={name}
             type="text"
             id="name"
             placeholder={LANGUAGE_MAP[language]["input"]}
@@ -206,7 +207,7 @@ function App() {
             width={width}
             height={height}
             videoConstraints={videoConstraints}
-            className="w-full h-[100dvh]"
+            className="w-full h-[100dvh] object-cover"
           ></Webcam>
           <div
             className={cn(
