@@ -50,7 +50,7 @@ body:has(#root > .end_page) {
   background: url("/img/ending_page.png") #dd5350;
   background-repeat: no-repeat;
   background-position: top center;
-  background-size: contain;
+  background-size: 100% 100%;
 }
 
 .textOutline {

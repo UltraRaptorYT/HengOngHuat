@@ -116,6 +116,10 @@ function App() {
     }
   }, [width, height]);
 
+  useEffect(() => {
+    alert(JSON.stringify(videoConstraints));
+  }, [videoConstraints]);
+
   return (
     <div
       className={cn(bodyClass, "relative min-h-[100dvh] h-full", language)}
