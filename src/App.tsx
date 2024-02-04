@@ -75,9 +75,9 @@ function App() {
 
   useEffect(() => {
     if (bodyClass == "flowers" || bodyClass == "gold" || bodyClass == "light") {
-      setTimeout(() => {
-        setBodyClass("end_page");
-      }, 10000);
+      // setTimeout(() => {
+      //   setBodyClass("end_page");
+      // }, 10000);
     }
   }, [bodyClass]);
 
@@ -179,12 +179,13 @@ function App() {
           <div className="text-8xl font-bold glowText 中文 mb-16">大吉</div>
         </div>
       ) : (
-        <div>
+        <div className="max-h-[100dvh] overflow-hidden relative">
           <Webcam
             audio={false}
             width={width}
             height={height}
             videoConstraints={videoConstraints}
+            className="w-full h-[100dvh]"
           ></Webcam>
           <div
             className={cn(
