@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState, useEffect, ReactNode, useRef } from "react";
+import { useState, useEffect, ReactNode } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import CustomButton from "./components/CustomButton";
@@ -7,28 +7,37 @@ import { Toaster } from "@/components/ui/toaster";
 import { useToast } from "@/components/ui/use-toast";
 import Webcam from "react-webcam";
 import { cn } from "./lib/utils";
+import { useWindowSize } from "@uidotdev/usehooks";
 
 type bodyClassType = "title_page" | "end_page" | "flowers" | "gold" | "light";
 
 function App() {
   const { toast } = useToast();
-  let docRef = useRef(null);
   let [name, setName] = useState<string>("");
   let [bodyClass, setBodyClass] = useState<bodyClassType>("title_page");
   let [language, setLanguage] = useState<"EN" | "中文">("EN");
-  let [width, setWidth] = useState<number>(0);
-  let [height, setHeight] = useState<number>(0);
+  const size = useWindowSize();
 
   type videoConstraintsType = {
     width: number;
     height: number;
     facingMode: string;
+    autoFocus: string;
+    flashMode: string;
+    whiteBalance: string;
+    zoom: number;
+    focusDepth: number;
   };
 
   let [videoConstraints, setVideoConstraints] = useState<videoConstraintsType>({
-    width: width,
-    height: height,
+    width: 0,
+    height: 0,
     facingMode: "environment",
+    autoFocus: "continuous",
+    flashMode: "off",
+    whiteBalance: "continuous",
+    zoom: 0,
+    focusDepth: 0,
   });
 
   type LANGUAGE_TYPE = {
@@ -99,32 +108,23 @@ function App() {
       .catch(function (error) {
         console.error("Error accessing video stream:", error);
       });
-    if (docRef && docRef.current) {
-      setWidth((docRef.current as HTMLDivElement).clientWidth);
-      setHeight((docRef.current as HTMLDivElement).clientHeight);
-    }
   }, []);
 
   useEffect(() => {
-    if (width > 0 && height > 0) {
-      setVideoConstraints((prevState: videoConstraintsType) => {
-        let currentState = { ...prevState };
-        currentState["width"] = width;
-        currentState["height"] = height;
-        return currentState;
-      });
-    }
-  }, [width, height]);
+    setVideoConstraints((prevState: videoConstraintsType) => {
+      let currentState = { ...prevState };
+      currentState["width"] = size.width || 0;
+      currentState["height"] = size.height || 0;
+      return currentState;
+    });
+  }, [size]);
 
   useEffect(() => {
     alert(JSON.stringify(videoConstraints));
   }, [videoConstraints]);
 
   return (
-    <div
-      className={cn(bodyClass, "relative min-h-[100dvh] h-full", language)}
-      ref={docRef}
-    >
+    <div className={cn(bodyClass, "relative min-h-[100dvh] h-full", language)}>
       <div className="absolute top-2 right-2 z-10">
         <Button
           variant={"outline"}
@@ -204,10 +204,11 @@ function App() {
         <div className="max-h-[100dvh] overflow-hidden relative">
           <Webcam
             audio={false}
-            width={width}
-            height={height}
+            width={size.width || 0}
+            height={size.height || 0}
             videoConstraints={videoConstraints}
             className="w-full h-[100dvh] object-cover"
+            autoFocus={true}
           ></Webcam>
           <div
             className={cn(
