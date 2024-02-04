@@ -182,7 +182,7 @@ function App() {
             width={720}
             height={1280}
             videoConstraints={videoConstraints}
-            className="w-full h-[100dvh]"
+            className="w-full h-[100dvh] object-cover"
             autoFocus={true}
           ></Webcam>
           <div
