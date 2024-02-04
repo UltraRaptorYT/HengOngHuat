@@ -15,7 +15,35 @@ function App() {
   let [name, setName] = useState<string>("");
   let [bodyClass, setBodyClass] = useState<bodyClassType>("title_page");
   let [language, setLanguage] = useState<"EN" | "中文">("EN");
+  let [randomLucky, setRandomLucky] = useState<string>("");
 
+  let LUCKY = [
+    {
+      4: "福",
+      8: "大福",
+      12: "超级福",
+    },
+    {
+      4: "兴",
+      8: "大兴",
+      12: "超级兴",
+    },
+    {
+      4: "旺",
+      8: "大旺",
+      12: "超级旺",
+    },
+    {
+      4: "发",
+      8: "大发",
+      12: "超级发",
+    },
+    {
+      4: "吉祥",
+      8: "大吉祥",
+      12: "超级吉祥",
+    },
+  ];
   let videoConstraints = {
     width: 720,
     height: 1280,
@@ -81,6 +109,20 @@ function App() {
       setTimeout(() => {
         setBodyClass("end_page");
       }, 10000);
+    } else if (bodyClass == "end_page") {
+      let randomWord = Math.floor(Math.random() * LUCKY.length);
+      let randomValue = Math.floor(Math.random() * 12) + 1;
+      let finalIndex: 4 | 8 | 12 = 4;
+      if (randomValue <= 4) {
+        finalIndex = 12;
+      }
+      if (randomValue <= 8) {
+        finalIndex = 8;
+      }
+      if (randomValue <= 12) {
+        finalIndex = 4;
+      }
+      setRandomLucky(LUCKY[randomWord][finalIndex]);
     }
   }, [bodyClass]);
 
@@ -173,7 +215,9 @@ function App() {
           >
             {LANGUAGE_MAP[language]["congrats"] + " " + name}
           </div>
-          <div className="text-8xl font-bold glowText 中文 mb-16">大吉</div>
+          <div className="text-8xl font-bold glowText 中文 mb-16">
+            {randomLucky}
+          </div>
         </div>
       ) : (
         <div className="max-h-[100dvh] overflow-hidden relative">
