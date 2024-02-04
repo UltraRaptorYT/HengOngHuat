@@ -78,9 +78,9 @@ function App() {
 
   useEffect(() => {
     if (bodyClass == "flowers" || bodyClass == "gold" || bodyClass == "light") {
-      // setTimeout(() => {
-      //   setBodyClass("end_page");
-      // }, 10000);
+      setTimeout(() => {
+        setBodyClass("end_page");
+      }, 10000);
     }
   }, [bodyClass]);
 
