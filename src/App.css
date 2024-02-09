@@ -62,7 +62,7 @@ body:has(#root > .end_page) {
 }
 
 .中文 .customOutline {
-  -webkit-text-stroke: 0.1px #faf5f533;
+  -webkit-text-stroke: 0.1px #faf5f5AA;
 }
 
 .textShadow {
