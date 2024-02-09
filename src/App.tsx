@@ -15,7 +15,7 @@ function App() {
   let [name, setName] = useState<string>("");
   let [bodyClass, setBodyClass] = useState<bodyClassType>("title_page");
   // let [bodyClass, setBodyClass] = useState<bodyClassType>("flowers");
-  let [language, setLanguage] = useState<"EN" | "中文">("EN");
+  let [language, setLanguage] = useState<"EN" | "中文">("中文");
   let [randomLucky, setRandomLucky] = useState<string>("");
 
   type LUCKY_TYPE = {
@@ -91,7 +91,7 @@ function App() {
       scanText: <span>Face camera towards Buddha and offer items</span>,
     },
     中文: {
-      header: <div className="text-[2.6rem] font-bold mt-8">选择您的贡品</div>,
+      header: <div className="text-[2.5rem] font-bold mt-8">选择您的贡品</div>,
       input: "输入您的名字",
       flower: <span>鲜花</span>,
       gold: <span>金宝</span>,
@@ -117,6 +117,11 @@ function App() {
     }
     setBodyClass(state);
     console.log(name);
+  }
+
+  function isChinese(text: string) {
+    // Match any Chinese character using the Unicode range for Chinese characters
+    return /[\u4E00-\u9FFF]/.test(text);
   }
 
   useEffect(() => {
@@ -153,7 +158,10 @@ function App() {
   }, []);
 
   return (
-    <div className={cn(bodyClass, "relative min-h-[100dvh] h-full", language)}>
+    <div
+      className={cn(bodyClass, "relative min-h-[100dvh] h-full", language)}
+      id="bodyClass"
+    >
       <div className="absolute top-2 right-2 z-10">
         <Button
           variant={"outline"}
@@ -232,7 +240,7 @@ function App() {
             >
               {LANGUAGE_MAP[language]["congrats"]}
             </span>
-            <span>{name}</span>
+            <span className={isChinese(name) ? "中文" : "EN"}>{name}</span>
           </div>
           <div
             id="scroll"
@@ -281,7 +289,9 @@ function App() {
             autoFocus={true}
           ></Webcam>
           <div className="absolute top-20 font-semibold textOutline text-[#5e2222] textShadow left-0 right-0 flex justify-center z-30 px-2 text-center">
-            <h1 className="text-2xl">{LANGUAGE_MAP[language]["scanText"]}</h1>
+            <h1 className="text-2xl customOutline">
+              {LANGUAGE_MAP[language]["scanText"]}
+            </h1>
           </div>
           <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-30">
             <CustomButton
@@ -290,7 +300,9 @@ function App() {
                 "redLinearBackground py-2 px-6"
               )}
               clickHandler={() => {
-                setBodyClass("end_page");
+                setTimeout(() => {
+                  setBodyClass("end_page");
+                }, 1000);
               }}
             >
               {LANGUAGE_MAP[language]["offer"]}
