@@ -13,8 +13,8 @@ type bodyClassType = "title_page" | "end_page" | "flowers" | "gold" | "light";
 function App() {
   const { toast } = useToast();
   let [name, setName] = useState<string>("");
-  // let [bodyClass, setBodyClass] = useState<bodyClassType>("title_page");
-  let [bodyClass, setBodyClass] = useState<bodyClassType>("end_page");
+  let [bodyClass, setBodyClass] = useState<bodyClassType>("title_page");
+  // let [bodyClass, setBodyClass] = useState<bodyClassType>("end_page");
   let [language, setLanguage] = useState<"EN" | "中文">("中文");
   let [randomLucky, setRandomLucky] = useState<string>("");
 
