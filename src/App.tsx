@@ -13,8 +13,8 @@ type bodyClassType = "title_page" | "end_page" | "flowers" | "gold" | "light";
 function App() {
   const { toast } = useToast();
   let [name, setName] = useState<string>("");
-  let [bodyClass, setBodyClass] = useState<bodyClassType>("title_page");
-  // let [bodyClass, setBodyClass] = useState<bodyClassType>("flowers");
+  // let [bodyClass, setBodyClass] = useState<bodyClassType>("title_page");
+  let [bodyClass, setBodyClass] = useState<bodyClassType>("end_page");
   let [language, setLanguage] = useState<"EN" | "中文">("中文");
   let [randomLucky, setRandomLucky] = useState<string>("");
 
@@ -246,7 +246,7 @@ function App() {
             id="scroll"
             className="flex items-center justify-center mt-12 relative"
           >
-            <div className="text-6xl font-extrabold glowTextRed 中文 mb-10 text-[#E62911]">
+            <div className="luckyAnimation text-6xl font-extrabold glowTextRed 中文 mb-10 text-[#E62911]">
               {randomLucky}
             </div>
             <div className="absolute z-10 w-full h-full">

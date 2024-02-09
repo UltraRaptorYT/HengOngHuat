@@ -62,7 +62,7 @@ body:has(#root > .end_page) {
 }
 
 .中文 .customOutline {
-  -webkit-text-stroke: 0.1px #faf5f5AA;
+  -webkit-text-stroke: 0.1px #faf5f5aa;
 }
 
 .textShadow {
@@ -105,30 +105,24 @@ body:has(#root > .end_page) {
   transform: translateY(8%);
 }
 
-/*TEST*/
+.luckyAnimation {
+  animation: shake 0.75s ease-in-out infinite alternate-reverse;
+}
 
-.dot {
-  width: 35px;
-  height: 35px;
-  position: absolute;
-  background: url(http://img.babathe.com/upload/specialDisplay/htmlImage/2019/20190104_rose2.png);
-  background-size: 100% 100%;
-}
-.dot2 {
-  width: 35px;
-  height: 35px;
-  position: absolute;
-  background: url(http://img.babathe.com/upload/specialDisplay/htmlImage/2019/20190104_rose.png);
-  background-size: 100% 100%;
-}
-.dot3 {
-  width: 35px;
-  height: 35px;
-  position: absolute;
-  background: url(http://img.babathe.com/upload/specialDisplay/htmlImage/2019/20190104_rose3.png);
-  background-size: 100% 100%;
-}
-#container {
-  width: 100%;
-  height: 100%;
+@keyframes shake {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-10deg) scale(1.02);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  75% {
+    transform: rotate(10deg) scale(1.02);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }
