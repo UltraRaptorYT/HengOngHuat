@@ -2,7 +2,7 @@ import "./App.css";
 import { useState, useEffect, ReactNode } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import CustomButton from "./components/CustomButton";
+import CustomButton from "@/components/CustomButton";
 import { Toaster } from "@/components/ui/toaster";
 import { useToast } from "@/components/ui/use-toast";
 import Webcam from "react-webcam";
@@ -14,7 +14,7 @@ function App() {
   const { toast } = useToast();
   let [name, setName] = useState<string>("");
   let [bodyClass, setBodyClass] = useState<bodyClassType>("title_page");
-  // let [bodyClass, setBodyClass] = useState<bodyClassType>("end_page");
+  // let [bodyClass, setBodyClass] = useState<bodyClassType>("flowers");
   let [language, setLanguage] = useState<"EN" | "中文">("EN");
   let [randomLucky, setRandomLucky] = useState<string>("");
 
@@ -70,6 +70,7 @@ function App() {
     warning: string;
     congrats: string;
     offer: string;
+    scanText: ReactNode;
   };
 
   type LANGUAGE_MAP_TYPE = {
@@ -87,6 +88,7 @@ function App() {
       warning: "Please enter name before choosing offering",
       congrats: "CONGRATULATIONS",
       offer: "Offer Item",
+      scanText: <span>Face camera towards Buddha and offer items</span>,
     },
     中文: {
       header: <div className="text-[2.6rem] font-bold mt-8">选择您的贡品</div>,
@@ -97,6 +99,11 @@ function App() {
       warning: "请输入您的名字才选择您的贡品",
       congrats: "恭喜",
       offer: "供养贡品",
+      scanText: (
+        <div className="text-[1.75rem] font-bold mt-8">
+          将相机面向佛陀并供养贡品
+        </div>
+      ),
     },
   };
 
@@ -273,6 +280,9 @@ function App() {
             className="w-full h-[100dvh] object-cover"
             autoFocus={true}
           ></Webcam>
+          <div className="absolute top-20 font-semibold textOutline text-[#5e2222] textShadow left-0 right-0 flex justify-center z-30 px-2 text-center">
+            <h1 className="text-2xl">{LANGUAGE_MAP[language]["scanText"]}</h1>
+          </div>
           <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-30">
             <CustomButton
               className={cn(
@@ -286,9 +296,35 @@ function App() {
               {LANGUAGE_MAP[language]["offer"]}
             </CustomButton>
           </div>
+          {/* <div className={"absolute w-full top-0 bottom-0"}>
+          </div> */}
           <div
             className={cn(
-              "absolute left-0 right-0 z-10",
+              "absolute -left-14 -right-14 z-10",
+              bodyClass == "flowers"
+                ? "bottom-[-10%]"
+                : bodyClass == "light"
+                ? "bottom-[-15%] translate-x-[10px]"
+                : "bottom-[-20%]"
+            )}
+          >
+            <img src={`/img/${bodyClass}.png`} />
+          </div>
+          <div
+            className={cn(
+              "absolute left-24 -right-40 z-10",
+              bodyClass == "flowers"
+                ? "bottom-[-10%]"
+                : bodyClass == "light"
+                ? "bottom-[-15%] translate-x-[10px]"
+                : "bottom-[-20%]"
+            )}
+          >
+            <img src={`/img/${bodyClass}.png`} />
+          </div>
+          <div
+            className={cn(
+              "absolute -left-40 right-24 z-10",
               bodyClass == "flowers"
                 ? "bottom-[-10%]"
                 : bodyClass == "light"
