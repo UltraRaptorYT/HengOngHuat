@@ -72,3 +72,31 @@ body:has(#root > .end_page) {
 .glowText {
   text-shadow: 0px 0px 15px #e3e04b88;
 }
+
+.glowTextRed {
+  -webkit-text-stroke: 2px #d7220d88;
+}
+
+#scroll {
+  background-image: url("/img/Scroll.png");
+  width: 100%;
+  aspect-ratio: 1.6;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+#scroll:before {
+  content: "";
+  display: block;
+  background: url("/img/Scroll_Glow.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: top center;
+  width: 100%;
+  aspect-ratio: 1;
+  position: absolute;
+  z-index: -1;
+  border-radius: 100%;
+  top: -50%;
+  transform: translateY(8%);
+}

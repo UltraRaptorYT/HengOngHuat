@@ -14,34 +14,39 @@ function App() {
   const { toast } = useToast();
   let [name, setName] = useState<string>("");
   let [bodyClass, setBodyClass] = useState<bodyClassType>("title_page");
+  // let [bodyClass, setBodyClass] = useState<bodyClassType>("end_page");
   let [language, setLanguage] = useState<"EN" | "中文">("EN");
   let [randomLucky, setRandomLucky] = useState<string>("");
 
-  let LUCKY = [
+  type LUCKY_TYPE = {
+    [key: string]: number;
+  };
+
+  let LUCKY: LUCKY_TYPE[] = [
     {
-      4: "福",
-      8: "大福",
-      12: "超级福",
+      福: 0.1,
+      大福: 0.6,
+      超级福: 0.3,
     },
     {
-      4: "兴",
-      8: "大兴",
-      12: "超级兴",
+      兴: 0.1,
+      大兴: 0.6,
+      超级兴: 0.3,
     },
     {
-      4: "旺",
-      8: "大旺",
-      12: "超级旺",
+      旺: 0.1,
+      大旺: 0.6,
+      超级旺: 0.3,
     },
     {
-      4: "发",
-      8: "大发",
-      12: "超级发",
+      发: 0.1,
+      大发: 0.6,
+      超级发: 0.3,
     },
     {
-      4: "吉祥",
-      8: "大吉祥",
-      12: "超级吉祥",
+      吉祥: 0.1,
+      大吉祥: 0.6,
+      超级吉祥: 0.3,
     },
   ];
   let videoConstraints = {
@@ -64,6 +69,7 @@ function App() {
     light: ReactNode;
     warning: string;
     congrats: string;
+    offer: string;
   };
 
   type LANGUAGE_MAP_TYPE = {
@@ -80,6 +86,7 @@ function App() {
       light: <span>Candles</span>,
       warning: "Please enter name before choosing offering",
       congrats: "CONGRATULATIONS",
+      offer: "Offer Item",
     },
     中文: {
       header: <div className="text-[2.6rem] font-bold mt-8">选择您的贡品</div>,
@@ -89,6 +96,7 @@ function App() {
       light: <span>蜡烛</span>,
       warning: "请输入您的名字才选择您的贡品",
       congrats: "恭喜",
+      offer: "供养贡品",
     },
   };
 
@@ -106,23 +114,20 @@ function App() {
 
   useEffect(() => {
     if (bodyClass == "flowers" || bodyClass == "gold" || bodyClass == "light") {
-      setTimeout(() => {
-        setBodyClass("end_page");
-      }, 10000);
+      // setTimeout(() => {
+      //   setBodyClass("end_page");
+      // }, 10000);
     } else if (bodyClass == "end_page") {
       let randomWord = Math.floor(Math.random() * LUCKY.length);
-      let randomValue = Math.floor(Math.random() * 12) + 1;
-      let finalIndex: 4 | 8 | 12 = 4;
-      if (randomValue <= 4) {
-        finalIndex = 12;
+      const randNum = Math.random();
+      let cumulativeProb = 0;
+      for (const letter in LUCKY[randomWord]) {
+        cumulativeProb += LUCKY[randomWord][letter];
+        if (randNum <= cumulativeProb) {
+          setRandomLucky(letter);
+          break;
+        }
       }
-      if (randomValue <= 8) {
-        finalIndex = 8;
-      }
-      if (randomValue <= 12) {
-        finalIndex = 4;
-      }
-      setRandomLucky(LUCKY[randomWord][finalIndex]);
     }
   }, [bodyClass]);
 
@@ -206,18 +211,57 @@ function App() {
           </CustomButton>
         </div>
       ) : bodyClass == "end_page" ? (
-        <div className="flex flex-col min-h-[100dvh] h-full justify-center items-center gap-24 mx-auto w-[300px] text-[#e3e04b]">
+        <div className="flex flex-col min-h-[100dvh] h-full justify-center items-center mx-auto p-1 text-[#e3e04b] min-w-[300px] max-w-[360px]">
           <div
             className={cn(
-              "text-2xl text-center endPageText",
-              language == "中文" ? "font-semibold text-[2.6rem]" : ""
+              "text-2xl text-center endPageText flex flex-col",
+              language == "中文" ? "font-semibold text-[2.1rem]" : ""
             )}
           >
-            {LANGUAGE_MAP[language]["congrats"] + " " + name}
+            <span
+              className={
+                language == "中文" ? "font-semibold leading-[0.6]" : ""
+              }
+            >
+              {LANGUAGE_MAP[language]["congrats"]}
+            </span>
+            <span>{name}</span>
           </div>
-          <div className="text-8xl font-bold glowText 中文 mb-16">
-            {randomLucky}
+          <div
+            id="scroll"
+            className="flex items-center justify-center mt-12 relative"
+          >
+            <div className="text-6xl font-extrabold glowTextRed 中文 mb-10 text-[#E62911]">
+              {randomLucky}
+            </div>
+            <div className="absolute z-10 w-full h-full">
+              <img
+                src="/img/Ingot_01.png"
+                className="absolute w-14 aspect-square z-10 -bottom-14 left-10"
+              />
+              <img
+                src="/img/Ingot_02.png"
+                className="absolute w-14 aspect-square z-10 -bottom-8 right-20"
+              />
+              <img
+                src="/img/Coin_01.png"
+                className="absolute w-14 aspect-square z-10 -top-9 right-6"
+              />
+              <img
+                src="/img/Coin_02.png"
+                className="absolute w-10 aspect-square z-10 top-5 right-14"
+              />
+              <img
+                src="/img/Coin_01.png"
+                className="absolute w-12 aspect-square z-10 -top-10 -scale-x-100"
+              />
+              <img
+                src="/img/Coin_02.png"
+                className="absolute w-12 aspect-square z-10 top-5 -scale-x-100 left-4"
+              />
+            </div>
           </div>
+          <div></div>
         </div>
       ) : (
         <div className="max-h-[100dvh] overflow-hidden relative">
@@ -229,6 +273,19 @@ function App() {
             className="w-full h-[100dvh] object-cover"
             autoFocus={true}
           ></Webcam>
+          <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-30">
+            <CustomButton
+              className={cn(
+                language == "中文" ? "font-semibold text-lg" : "text-base",
+                "redLinearBackground py-2 px-6"
+              )}
+              clickHandler={() => {
+                setBodyClass("end_page");
+              }}
+            >
+              {LANGUAGE_MAP[language]["offer"]}
+            </CustomButton>
+          </div>
           <div
             className={cn(
               "absolute left-0 right-0 z-10",

@@ -1,3 +1,7 @@
 .goldLinearBackground {
   background: linear-gradient(#edd574,#d8b13a);
 }
+
+.redLinearBackground {
+  background: linear-gradient(#f06a62,#d7271a);
+}
